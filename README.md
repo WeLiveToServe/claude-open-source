@@ -1,7 +1,8 @@
 # claude-open-source
 
-Thin local harness wrapper for launching the Claude-compatible open-source CLI
-path against the approved OpenAI-compatible harness target.
+Thin local harness repo for the Claude-compatible open-source CLI path. Wrapper
+implementation now lives in the canonical `C:\Users\keith\dev\cli-harness`
+checkout; files in this repo are compatibility shims for older paths.
 
 ## Local Environment
 
@@ -11,10 +12,6 @@ for harness routing because that shared file can contain real OpenAI credentials
 Expected local keys:
 
 ```dotenv
-OPENAI_API_KEY=
-OPENAI_BASE_URL=https://openrouter.ai/api/v1
-OPENAI_MODEL=openai/gpt-oss-120b:free
-
 OPENROUTER_API_KEY=
 OPENROUTER_BASE_URL=https://openrouter.ai/api/v1
 OPENROUTER_MODEL=openai/gpt-oss-120b:free
@@ -24,13 +21,12 @@ HARNESS_OPENROUTER_BASE_URL=https://openrouter.ai/api/v1
 HARNESS_OPENROUTER_MODEL=openai/gpt-oss-120b:free
 ```
 
-For now, OpenRouter is the only callable harness LLM engine. The `OPENAI_*`
-keys are local OpenAI-compatible harness target keys, not permission to call
-the real OpenAI account from the shared dev environment.
+For now, OpenRouter is the only callable harness LLM engine. Do not put
+`OPENAI_MODEL` or `OPENAI_BASE_URL` in the shared `C:\Users\keith\dev\.env`;
+use the local harness `.env` keys above or process-scoped overrides.
 
 ## Wrapper
 
-Use `claudeopen.py` or `claudeopen.cmd` to launch the Claude-compatible CLI
-with the local OpenRouter target. The wrapper reads this repo's local `.env`,
-locks the configured model, and isolates Claude config from any normal Claude
-login state.
+Use `C:\Users\keith\dev\cli-harness\claude-os.cmd` for new launches. The legacy
+`claudeopen.py` and `claudeopen.cmd` files in this repo forward to that canonical
+wrapper and accept the same options, including `--psycho`.
